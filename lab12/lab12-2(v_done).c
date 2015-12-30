@@ -18,7 +18,7 @@ void printArr(const struct DynaIntArr *arr);
 int main() {
     struct DynaIntArr testArr;
     initalArr(&testArr);
-
+    
     int opt;
     for(;;) {
         system("cls");
@@ -33,7 +33,7 @@ int main() {
         printf(" -------------------------------------------------\n");
         printf("What are you going to do? -> ");
         scanf("%d",&opt);
-
+        
         switch(opt) {
             case 1: {
                 printf("Please input the value: ");
@@ -87,7 +87,7 @@ int main() {
         printf("\n");
     }
     destroy(testArr);
-
+    
     return 0;
 }
 
@@ -98,7 +98,7 @@ void initalArr(struct DynaIntArr *arr){
 }
 
 int addOne(struct DynaIntArr *arr, int value){
-
+    
     if(arr->capacity == 0)
     {
         arr->data = malloc(sizeof(int));
@@ -113,7 +113,7 @@ int addOne(struct DynaIntArr *arr, int value){
     arr->data[arr->size] = value;
     arr->size++;
     return 1;
-
+    
     /*
      behave:
      if the capacity is enough
@@ -123,19 +123,19 @@ int addOne(struct DynaIntArr *arr, int value){
      allocate new memory space with size + 1
      copy old data into new space
      add the new value at end
-
      return 0 when action fail
      return 1 when action success
      */
-
+    
     //return 0;
 }
 
 int* getOne(struct DynaIntArr *arr, int index){
-
+    if(arr->size == 0) return NULL;
+    if(index + 1 > arr->size) return NULL;
     if(index > arr->capacity - 1 || index < 0) return NULL;
     else return &arr->data[index];
-
+    
     /*
      behave:
      return "the pointer" to the target value
@@ -155,7 +155,6 @@ int removeOne(struct DynaIntArr *arr, int index){
     /*
      behave:
      remove the value from the array but do not deallocate the memory
-
      return 0 when action fail
      return 1 when action success
      */
@@ -166,10 +165,10 @@ void clearArr(struct DynaIntArr *arr){
     int i = 0;
     for(i = arr->size - 1; i >= 0 ; i--)
     {
-        arr->data[i] = NULL;
+        arr->data[i] = 0;
     }
     arr->size = 0;
-    return NULL;
+    return ;
     /*
      behave:
      remove all data	but do not give back the memory space
@@ -177,7 +176,7 @@ void clearArr(struct DynaIntArr *arr){
 }
 
 void destroyArr(struct DynaIntArr *arr){
-    if(arr->capacity == 0) return NULL;
+    if(arr->capacity == 0) return;
     else
     {
         free(arr->data);
@@ -193,8 +192,8 @@ void destroyArr(struct DynaIntArr *arr){
 void printArr(const struct DynaIntArr *arr) {
     int i;
     printf("    size: %10d\ncapacity: %10d\n", arr->size, arr->capacity);
-
+    
     for(i = 0; i < arr->size; i++) printf("%d ", arr->data[i]);
-
+    
     putchar('\n');
 }
